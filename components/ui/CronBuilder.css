@@ -4,7 +4,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
 }
 
@@ -47,24 +46,24 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #13131f;
-  border: 1px solid #1e1e30;
-  border-left: 3px solid #7c6af7;
+  background: #ffffff;
+  border: 1px solid #000000;
   border-radius: 10px;
   padding: 14px 18px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 .explainer-panel.error {
-  border-left-color: #f76a6a;
+  border-left-color: #000000;
 }
 .explainer-icon {
   font-size: 1.1rem;
+  color: #000000;
 }
 .explainer-text {
   font-family: "Syne", sans-serif;
   font-size: 0.95rem;
-  color: #c4c4d8;
+  color: #000000;
 }
 
 /* ── Expression Display ── */

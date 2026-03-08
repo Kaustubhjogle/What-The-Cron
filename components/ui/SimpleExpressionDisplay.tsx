@@ -1,8 +1,22 @@
+import { useEffect, useState } from "react";
 
 const SimpleExpressionDisplay = ({ expression }: { expression: string }) => {
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    import("cronstrue").then(({ default: cronstrue }) => {
+      try {
+        const result = cronstrue.toString(expression);
+        setText(result);
+      } catch {
+        setText("Invalid expression");
+      }
+    });
+  }, [expression]);
+
   return (
-    <div>
-      <p> &quot;At 9:00 AM, Mon throgh five&quot; </p>
+    <div className="explainer-panel">
+      <span className="explainer-text">{text || "..."}</span>
     </div>
   );
 };

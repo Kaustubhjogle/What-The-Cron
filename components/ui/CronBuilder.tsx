@@ -34,8 +34,11 @@ const CronBuilder = () => {
     <>
       <div className="mt-20 cron-root">
         <ExpressionDisplay expression={expression} />
+        <div className="my-10">
+          <SimpleExpressionDisplay expression={expression} />
+        </div>
         <PresetButtons onSelect={setFields} />
-        <div className="fields-grid border">
+        <div className="fields-grid">
           <ToggleButton
             label="Minute"
             value={fields.minute}
@@ -86,9 +89,6 @@ const CronBuilder = () => {
             labels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
             onChange={updateField("dow")}
           />
-        </div>
-        <div className="mt-15">
-          <SimpleExpressionDisplay expression={expression} />
         </div>
       </div>
     </>

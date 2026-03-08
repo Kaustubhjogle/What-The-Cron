@@ -3,9 +3,9 @@ import { Label } from "@/components/ui/label";
 
 const ExpressionDisplay = ({ expression }: { expression: string }) => {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 justify-center">
       <Label htmlFor="terms">Expression</Label>
-      <Input id="last-name" value={expression} />
+      <Input defaultValue={expression} className="text-2xl! text-center w-full tracking-[2rem]"/>
     </div>
   );
 };
