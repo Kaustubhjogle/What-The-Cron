@@ -1,13 +1,22 @@
 "use client";
 
-import { Field, FieldGroup } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import ExpressionDisplay from "./ExpressionDisplay";
 import { useState } from "react";
+import ToggleButton from "./ToggleButton";
+import "./CronBuilder.css";
+import PresetButtons from "./PresetButtons";
 import SimpleExpressionDisplay from "./SimpleExpressionDisplay";
 
+type Fields = {
+  minute: string;
+  hour: string;
+  dom: string;
+  month: string;
+  dow: string;
+};
+
 const CronBuilder = () => {
-  const [fields, setFields] = useState({
+  const [fields, setFields] = useState<Fields>({
     minute: "*",
     hour: "*",
     dom: "*",
@@ -17,34 +26,70 @@ const CronBuilder = () => {
 
   const expression = `${fields.minute} ${fields.hour} ${fields.dom} ${fields.month} ${fields.dow}`;
 
+  const updateField = (key: keyof Fields) => (val: string) => {
+    setFields((prev) => ({ ...prev, [key]: val }));
+  };
+
   return (
     <>
-      <div className="mt-20">
-        <FieldGroup className="grid max-w-sm grid-cols-5 w-100">
-          <Field>
-            <Input id="first-name" placeholder="Min" />
-          </Field>
-          <Field>
-            <Input id="last-name" placeholder="Hr" />
-          </Field>
-          <Field>
-            <Input id="last-name" placeholder="DOM" />
-          </Field>
-          <Field>
-            <Input id="last-name" placeholder="Mo" />
-          </Field>
-          <Field>
-            <Input id="last-name" placeholder="DOW" />
-          </Field>
-        </FieldGroup>
-      </div>
-
-      <div className="mt-15">
+      <div className="mt-20 cron-root">
         <ExpressionDisplay expression={expression} />
-      </div>
-
-      <div className="mt-15">
-        <SimpleExpressionDisplay expression={expression} />
+        <PresetButtons onSelect={setFields} />
+        <div className="fields-grid border">
+          <ToggleButton
+            label="Minute"
+            value={fields.minute}
+            min={0}
+            max={59}
+            onChange={updateField("minute")}
+          />
+          <ToggleButton
+            label="Hour"
+            value={fields.hour}
+            min={0}
+            max={23}
+            onChange={updateField("hour")}
+          />
+          <ToggleButton
+            label="Day of Month"
+            value={fields.dom}
+            min={1}
+            max={31}
+            onChange={updateField("dom")}
+          />
+          <ToggleButton
+            label="Month"
+            value={fields.month}
+            min={1}
+            max={12}
+            labels={[
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ]}
+            onChange={updateField("month")}
+          />
+          <ToggleButton
+            label="Day of Week"
+            value={fields.dow}
+            min={0}
+            max={6}
+            labels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
+            onChange={updateField("dow")}
+          />
+        </div>
+        <div className="mt-15">
+          <SimpleExpressionDisplay expression={expression} />
+        </div>
       </div>
     </>
   );
