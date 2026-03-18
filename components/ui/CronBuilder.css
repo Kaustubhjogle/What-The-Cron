@@ -349,6 +349,12 @@ body {
   .bottom-row {
     grid-template-columns: 1fr;
   }
+
+  .fields-grid {
+    grid-template-columns: repeat(1, 1fr);
+    margin-bottom: 32px;
+  }
+
   .cron-title {
     font-size: 2rem;
   }

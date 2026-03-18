@@ -34,7 +34,7 @@ const CronBuilder = () => {
     <>
       <div className="mt-20 cron-root">
         <ExpressionDisplay expression={expression} />
-        <div className="my-10">
+        <div>
           <SimpleExpressionDisplay expression={expression} />
         </div>
         <PresetButtons onSelect={setFields} />
