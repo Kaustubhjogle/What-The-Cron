@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { Input } from "./input";
 import { Button } from "./button";
 import ExpressionDisplay from "./ExpressionDisplay";
@@ -11,8 +11,7 @@ const EnglishToCron = () => {
   const [responseExpression, setResponseExpression] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e): void => {
-    console.log("e", e.target.value);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setUserInput(e.target.value);
   };
 
