@@ -38,7 +38,6 @@ const EnglishToCron = () => {
   return (
     <div className="">
       English to Cron Mode
-      <input data-slot="input" />
       <div className="flex gap-2 my-4 flex-col md:flex-row">
         <Input onChange={handleInputChange} className="h-10" />
         <Button

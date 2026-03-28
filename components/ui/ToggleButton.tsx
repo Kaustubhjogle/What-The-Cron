@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type Mode = "every" | "interval" | "specific";
 
@@ -17,8 +17,10 @@ const ToggleButton = ({ label, value, min, max, onChange, labels }: Props) => {
   const [mode, setMode] = useState<Mode>("every");
   const [intervalVal, setIntervalVal] = useState(1);
   const [selected, setSelected] = useState<number[]>([]);
+  const isSyncingRef = useRef(false);
 
   useEffect(() => {
+    isSyncingRef.current = true;
     if (value === "*") {
       setMode("every");
       setSelected([]);
@@ -32,8 +34,13 @@ const ToggleButton = ({ label, value, min, max, onChange, labels }: Props) => {
     }
   }, [value]);
 
-  // Compute output string and send to parent whenever internal state changes
+  // Compute output string and send to parent ONLY on user changes
   useEffect(() => {
+    if (isSyncingRef.current) {
+      isSyncingRef.current = false;
+      return;
+    }
+
     let output = "*";
     if (mode === "every") {
       output = "*";
@@ -47,7 +54,7 @@ const ToggleButton = ({ label, value, min, max, onChange, labels }: Props) => {
           : [...selected].sort((a, b) => a - b).join(",");
     }
     onChange(output);
-  }, [mode, intervalVal, selected]);
+  }, [mode, intervalVal, selected, max]);
 
   const toggleSelected = (num: number) => {
     setSelected((prev) =>
